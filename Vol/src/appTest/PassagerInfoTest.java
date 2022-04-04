@@ -1,12 +1,9 @@
 package appTest;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
-
 import org.junit.jupiter.api.Test;
 
 class PassagerInfoTest {
@@ -21,7 +18,6 @@ class PassagerInfoTest {
 		}
 
 		private void UpdateTable() {
-			// TODO Auto-generated method stub
 			
 		}
 	});

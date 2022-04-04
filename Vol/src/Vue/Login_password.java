@@ -1,7 +1,6 @@
 package Vue;
 
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -22,6 +21,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+
+//============================Lien vers repository GitHub=======================
+
+/* https://github.com/Raileannatalia/JavaProject.git
+
+1. creer New repository sur GitHub Desktop
+2. copier le lien de cette repository --> dans l'onglet ouvrant choisir le fichier qui contient le projet.
+3. Faire "Push"-- le projet a ete bien ajouter sur GitHub. */
+
 
 public class Login_password extends JFrame{
 
@@ -111,8 +120,6 @@ public class Login_password extends JFrame{
 		btnLogin.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				/*Menu menu = new Menu();
-				menu.NewScreen();*/
 				
 				String password = textPassword.getText().toString();
 				String login = textUserName.getText().toString();

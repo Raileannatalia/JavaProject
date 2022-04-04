@@ -40,6 +40,7 @@ import java.sql.SQLException;
 public class Billeterie extends JFrame{
 
 	private JFrame frame;
+	
 	public void setFrame(JFrame frame) {
 		this.frame = frame;
 	}
@@ -78,7 +79,7 @@ public class Billeterie extends JFrame{
 				}
 			}
 		});
-		Connection conn=null;
+		/*Connection conn=null;
 		
 		// Connexion :
 		try {
@@ -88,7 +89,7 @@ public class Billeterie extends JFrame{
 			System.out.println("SQLite DataBase connected");
 		} catch (Exception e){
 			e.printStackTrace();                                   
-		}
+		}*/
 	}
 
 	/**
@@ -173,13 +174,13 @@ public class Billeterie extends JFrame{
 		
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setForeground(new Color(240, 255, 255));
-		separator_1.setBounds(42, 333, 441, 12);
+		separator_1.setBounds(42, 349, 441, 12);
 		frame.getContentPane().add(separator_1);
 		
 		JComboBox comboDestination = new JComboBox();
 		comboDestination.setModel(new DefaultComboBoxModel(new String[] {"To:", "Bruxelles", "Paris", "Tokyo", "New York"}));
 		comboDestination.setFont(new Font("Bangla MN", Font.PLAIN, 14));
-		comboDestination.setBounds(42, 349, 158, 33);
+		comboDestination.setBounds(42, 379, 158, 33);
 		frame.getContentPane().add(comboDestination);
 		
 		
@@ -250,11 +251,6 @@ public class Billeterie extends JFrame{
 		btnExit.setFont(new Font("Bangla MN", Font.BOLD, 13));
 		btnExit.setBounds(354, 510, 117, 33);
 		frame.getContentPane().add(btnExit);
-		
-		JSeparator sep1 = new JSeparator();
-		sep1.setForeground(new Color(240, 255, 255));
-		sep1.setBounds(42, 474, 441, 12);
-		frame.getContentPane().add(sep1);
 		
 		JSeparator sep2 = new JSeparator();
 		sep2.setForeground(new Color(240, 255, 255));
@@ -362,7 +358,7 @@ public class Billeterie extends JFrame{
 		
 		JLabel lblAroportDeDpart = new JLabel("Aéroport de départ");
 		lblAroportDeDpart.setFont(new Font("Bangla MN", Font.PLAIN, 17));
-		lblAroportDeDpart.setBounds(42, 402, 182, 33);
+		lblAroportDeDpart.setBounds(289, 304, 182, 33);
 		frame.getContentPane().add(lblAroportDeDpart);
 		
 		JComboBox comboDepart = new JComboBox();
@@ -382,12 +378,12 @@ public class Billeterie extends JFrame{
 		
 		comboDepart.setModel(new DefaultComboBoxModel(new String[] {"From:", "Nantes", "Lyon ", "Genève"}));
 		comboDepart.setFont(new Font("Bangla MN", Font.PLAIN, 14));
-		comboDepart.setBounds(42, 436, 158, 33);
+		comboDepart.setBounds(313, 379, 158, 33);
 		frame.getContentPane().add(comboDepart);
 		
 		JSeparator separator_1_2 = new JSeparator();
 		separator_1_2.setForeground(new Color(240, 255, 255));
-		separator_1_2.setBounds(42, 394, 441, 12);
+		separator_1_2.setBounds(42, 448, 441, 12);
 		frame.getContentPane().add(separator_1_2);
 		
 		
@@ -497,6 +493,26 @@ public class Billeterie extends JFrame{
 			return "200";
 		}
 		if (destination.equals("Bruxelles") && depart.equals("Nantes")&& classe.equals("Busines")){
+			return "350";
+		}
+		
+		if (destination.equals("Bruxelles") && depart.equals("Lyon")&& classe.equals("Economy")){
+			return "150";
+		}
+		if (destination.equals("Bruxelles") && depart.equals("Lyon")&& classe.equals("Standart")){
+			return "200";
+		}
+		if (destination.equals("Bruxelles") && depart.equals("Lyon")&& classe.equals("Busines")){
+			return "350";
+		}
+		
+		if (destination.equals("Bruxelles") && depart.equals("Genève")&& classe.equals("Economy")){
+			return "150";
+		}
+		if (destination.equals("Bruxelles") && depart.equals("Genève")&& classe.equals("Standart")){
+			return "200";
+		}
+		if (destination.equals("Bruxelles") && depart.equals("Genève")&& classe.equals("Busines")){
 			return "350";
 		}
 		

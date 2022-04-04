@@ -6,23 +6,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
 import javax.swing.JFrame;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
-
 import org.junit.jupiter.api.Test;
-
 import Vue.Billeterie;
 
 class BilleterieTest {
 	
 	Billeterie bil = new Billeterie();
-	private JTextField textPrice;
+	/*private JTextField textPrice;
 	private JTextField textNrTicket;
 	private String destination;
 	private String depart;
-	private String class_;
+	private String class_;*/
 
 	@Test
 	public void initialize() {
@@ -30,8 +27,6 @@ class BilleterieTest {
 		JRadioButton rdbtnStandart = new JRadioButton("Standart");
 		jf.setBounds(0, 0, 1164, 700);
 		rdbtnStandart.setBounds(42, 193, 141, 23);
-		
-		jf.setVisible(true);
 	
 		assertNotNull(rdbtnStandart);
 		//rdbtnStandart.initialize();
