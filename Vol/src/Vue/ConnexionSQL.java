@@ -21,24 +21,6 @@ public class ConnexionSQL {
 			JOptionPane.showMessageDialog(null, e);
 			return null;
 		}
-		
-		
-		/*// Chercher des donnÈes :
-		try(Statement sta1 = conn.createStatement()){                       //executeQuery : execution select
-			ResultSet rs = sta1.executeQuery("SELECT * FROM Admin");
-		while(rs.next()) {
-			System.out.println(rs.getString("password"));
-			}
-		}
-		// RequÍte language SQL: 
-		String strsql = "SELECT * FROM Passager";
-		
-		// Manipulation des tables : 
-		try(Statement sta = conn.createStatement()){           // executeUpdate : execution de la mise ‡ jour
-			sta.executeUpdate(strsql);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}*/
 	}
 }
 		

@@ -32,6 +32,9 @@ import com.toedter.calendar.JDateChooser;
 import Modèle.ConnexionSQL;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 
 public class Billeterie extends JFrame{
@@ -41,7 +44,6 @@ public class Billeterie extends JFrame{
 		this.frame = frame;
 	}
 	public JFrame getFrame() {
-		
 		return frame;
 	}
 
@@ -53,9 +55,11 @@ public class Billeterie extends JFrame{
 	private JTextField textTo;
 	private JTextField textDate;
 	private JTextField textHeure;
-	private JTextField textSiege;
 	private JTextField textNrTicket;
-	private JTextField textCompagnie;
+	
+	Connection conn = null;
+	PreparedStatement prepared = null;
+	ResultSet resultat = null;
 	
 
 
@@ -68,22 +72,22 @@ public class Billeterie extends JFrame{
 				try {
 					Billeterie bil = new Billeterie();
 					bil.frame.setVisible(true);
-					//bil.setLocationRelativeTo(null);
+			
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-		Connection c = null;
+		Connection conn=null;
 		
 		// Connexion :
 		try {
-			//org.Nomdelabd.Driver driver = new org.nomdelabd.Driver();
-			Class.forName("org.sqlite.JDBC");                         // On instancie l'objet de la classe
-			c = DriverManager.getConnection("jdbc:sqlite:BasesDeDonnees/BDD.db");       //Connection du driver avec la BD
+			
+			Class.forName("org.sqlite.JDBC");                        
+			conn = DriverManager.getConnection("jdbc:sqlite:BasesDeDonnees/BDD.db");       //Connection du driver avec la BD
 			System.out.println("SQLite DataBase connected");
 		} catch (Exception e){
-			e.printStackTrace();                                   //sert ‡ garder une trace de l'exeption
+			e.printStackTrace();                                   
 		}
 	}
 
@@ -92,6 +96,7 @@ public class Billeterie extends JFrame{
 	 */
 	public Billeterie() {
 		initialize();
+		
 	}
 
 	/**
@@ -99,6 +104,8 @@ public class Billeterie extends JFrame{
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		
+		
 		frame.getContentPane().setBackground(new Color(70, 130, 180));
 		frame.setBounds(0, 0, 1164, 700);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -175,21 +182,6 @@ public class Billeterie extends JFrame{
 		comboDestination.setBounds(42, 349, 158, 33);
 		frame.getContentPane().add(comboDestination);
 		
-		JLabel lblCompanie = new JLabel("Companie");
-		lblCompanie.setFont(new Font("Bangla MN", Font.PLAIN, 17));
-		lblCompanie.setBounds(217, 304, 132, 33);
-		frame.getContentPane().add(lblCompanie);
-		
-		JComboBox comboCompanie = new JComboBox();
-		comboCompanie.setModel(new DefaultComboBoxModel(new String[] {"With:", "SwissAirlines", "EasyJet", "AirFrance", "AmericanAigle"}));
-		comboCompanie.setFont(new Font("Bangla MN", Font.PLAIN, 14));
-		comboCompanie.setBounds(217, 349, 158, 33);
-		frame.getContentPane().add(comboCompanie);
-		
-		/*JLabel lblDateCalendar = new JLabel("Date");
-		lblDateCalendar.setFont(new Font("Bangla MN", Font.PLAIN, 17));
-		lblDateCalendar.setBounds(567, 402, 75, 33);
-		frame.getContentPane().add(lblDateCalendar);*/
 		
 		JLabel lblPrice = new JLabel("Price");
 		lblPrice.setFont(new Font("Bangla MN", Font.PLAIN, 17));
@@ -202,24 +194,28 @@ public class Billeterie extends JFrame{
 		frame.getContentPane().add(textPrice);
 		textPrice.setColumns(10);
 		
-	
 		
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.setToolTipText("Cancel System");
 		btnCancel.addActionListener(new ActionListener() {
+			
 			public void actionPerformed(ActionEvent e) {
 				
-				//Cancel les informations choisis 
+				//Supprimer les informations choisis 
 				textPrice.setText(null);
+				
 				rdbtnAdulte.setSelected(false);
 				rdbtnEnfant.setSelected(false);
 				rdbtnEconomy.setSelected(false);
 				rdbtnStandart.setSelected(false);
 				rdbtnBusiness.setSelected(false);
+				
 				comboDestination.setSelectedItem("Destination");
-				comboCompanie.setSelectedItem("Companie");
+				
+				
 				rdbtnAllerSimple.setSelected(false);
 				rdbtnAllerRetour.setSelected(false);
+				
 				textTo.setText(null);
 				textFrom.setText(null);
 				textDate.setText(null);
@@ -228,11 +224,11 @@ public class Billeterie extends JFrame{
 				textPrice.setText(null);
 				textAllerRetour.setText(null);
 				textCategorie.setText(null);
-				textSiege.setText(null);
 				textNrTicket.setText(null);
 				
 			}
 		});
+		
 		btnCancel.setFont(new Font("Bangla MN", Font.BOLD, 13));
 		btnCancel.setBounds(199, 510, 117, 33);
 		frame.getContentPane().add(btnCancel);
@@ -240,6 +236,7 @@ public class Billeterie extends JFrame{
 		JButton btnExit = new JButton("Exit");
 		btnExit.setToolTipText("Exit System");
 		btnExit.addActionListener(new ActionListener() {
+			
 			public void actionPerformed(ActionEvent e) {
 				
 				frame = new JFrame("Exit");
@@ -352,17 +349,6 @@ public class Billeterie extends JFrame{
 		separator_3.setBounds(532, 127, 533, 12);
 		frame.getContentPane().add(separator_3);
 		
-		JLabel lblSige = new JLabel("Siège");
-		lblSige.setFont(new Font("Bangla MN", Font.PLAIN, 17));
-		lblSige.setBounds(567, 333, 132, 33);
-		frame.getContentPane().add(lblSige);
-		
-		textSiege = new JTextField();
-		textSiege.setBackground(new Color(248, 248, 255));
-		textSiege.setColumns(10);
-		textSiege.setBounds(711, 333, 90, 26);
-		frame.getContentPane().add(textSiege);
-		
 		JLabel lblNrticket = new JLabel("NrTicket");
 		lblNrticket.setFont(new Font("Bangla MN", Font.PLAIN, 17));
 		lblNrticket.setBounds(871, 333, 90, 33);
@@ -391,9 +377,7 @@ public class Billeterie extends JFrame{
 				if (e.getStateChange()==ItemEvent.SELECTED) {
 					comboDepart.getSelectedItem().toString();
 				}
-				
 			}
-			
 		});
 		
 		comboDepart.setModel(new DefaultComboBoxModel(new String[] {"From:", "Nantes", "Lyon ", "Genève"}));
@@ -413,17 +397,6 @@ public class Billeterie extends JFrame{
 		btnTotal.setBounds(45, 510, 117, 33);
 		frame.getContentPane().add(btnTotal);
 		
-		JLabel lblCompagnie = new JLabel("Compagnie");
-		lblCompagnie.setFont(new Font("Bangla MN", Font.PLAIN, 17));
-		lblCompagnie.setBounds(567, 378, 132, 33);
-		frame.getContentPane().add(lblCompagnie);
-		
-		textCompagnie = new JTextField();
-		textCompagnie.setBackground(new Color(248, 248, 255));
-		textCompagnie.setColumns(10);
-		textCompagnie.setBounds(711, 371, 90, 26);
-		frame.getContentPane().add(textCompagnie);
-		
 		JLabel lblBilleterie = new JLabel("Billeterie - Aéroport");
 		lblBilleterie.setForeground(new Color(240, 255, 255));
 		lblBilleterie.setFont(new Font("Bangla MN", Font.PLAIN, 30));
@@ -436,6 +409,7 @@ public class Billeterie extends JFrame{
 		separator_2.setForeground(new Color(240, 255, 255));
 		separator_2.setBounds(42, 78, 1023, 12);
 		frame.getContentPane().add(separator_2);
+		
 		btnTotal.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -455,22 +429,32 @@ public class Billeterie extends JFrame{
 				SimpleDateFormat tDate = new SimpleDateFormat("dd-MMM-yyyy");
 				textDate.setText(tDate.format(timer.getTime()));
 				
-				//textFrom.setText(comboDepart.getSelectedItem().toString());
-				textTo.setText((String) comboDestination.getSelectedItem()+"*");
-				//utiliser setText pour remplir les ... 
-				textFrom.setText((String) comboDepart.getSelectedItem());
-				//textClass.
-				textCompagnie.setText((String) comboCompanie.getSelectedItem());
+			//======Remplir les textField=====
 				
+				String destination = (String) comboDestination.getSelectedItem();
+				textTo.setText((String) comboDestination.getSelectedItem()+"*");
+				
+				String depart = (String) comboDepart.getSelectedItem();
+				textFrom.setText((String) comboDepart.getSelectedItem());
+				
+				String class_= "";
 				if (rdbtnEconomy.isSelected()) {
 					textClass.setText("Economy");
+					class_ = "Economy";
 				}
 				if (rdbtnStandart.isSelected()) {
 					textClass.setText("Standart");
+					class_ = "Standart";
 				}
 				if (rdbtnBusiness.isSelected()) {
 					textClass.setText("Busines");
+					class_ = "Busines";
 				}
+				
+				if (class_==""){
+					JOptionPane.showMessageDialog(null, "Inserez les valeurs, reesayez");
+				}
+				
 				
 				if (rdbtnAllerSimple.isSelected()){
 					textAllerRetour.setText("Aller Simple");	
@@ -485,13 +469,15 @@ public class Billeterie extends JFrame{
 					textCategorie.setText("Enfant");	
 				}
 				
-				
 			//=====Random number generator=====
 				int nb1;
 				String a1 ="";
 				nb1 = 2453 + (int) (Math.random()*5680);
 				a1+=nb1+2453;
 				textNrTicket.setText(a1);
+				
+				textPrice.setText((String) calculerPrix(destination, depart, class_));
+				
 	
 			}
 		});
@@ -499,8 +485,22 @@ public class Billeterie extends JFrame{
 		
 	}
 
-	public void calculerPrix() {
+	public String calculerPrix(String destination, String depart , String classe) {
+	
 		
-	}
-
+		//creer une methode qui va permettre de calculer le prix en fonction de Class, Categorie, Aller/retour
+		
+		if (destination.equals("Bruxelles") && depart.equals("Nantes")&& classe.equals("Economy")){
+			return "150";
+		}
+		if (destination.equals("Bruxelles") && depart.equals("Nantes")&& classe.equals("Standart")){
+			return "200";
+		}
+		if (destination.equals("Bruxelles") && depart.equals("Nantes")&& classe.equals("Busines")){
+			return "350";
+		}
+		
+		return "";
+		}
+		
 }

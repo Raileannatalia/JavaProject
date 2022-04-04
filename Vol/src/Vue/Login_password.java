@@ -23,7 +23,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Login_password {
+public class Login_password extends JFrame{
 
 	private JFrame frame;
 	private JTextField textUserName;
@@ -41,8 +41,10 @@ public class Login_password {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Login_password window = new Login_password();
-					window.frame.setVisible(true);
+					Login_password auth = new Login_password();
+					auth.frame.setVisible(true);
+					auth.setLocationRelativeTo(null);
+			
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -70,6 +72,7 @@ public class Login_password {
 		frame.setBounds(200, 200, 500, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		
 		conn = ConnexionSQL.ConnexionDB();
 		
 		JLabel lblText = new JLabel("Authentification");
@@ -110,8 +113,6 @@ public class Login_password {
 			public void actionPerformed(ActionEvent e) {
 				/*Menu menu = new Menu();
 				menu.NewScreen();*/
-				Menu window = new Menu();
-				window.setVisible(true);
 				
 				String password = textPassword.getText().toString();
 				String login = textUserName.getText().toString();
@@ -139,33 +140,25 @@ public class Login_password {
 							{
 								JOptionPane.showMessageDialog(null, "Connexion reussie");
 								i = 1;
+									
 							}
-							
 						}
-					}
+						if (i==0) {
+							JOptionPane.showMessageDialog(null, "Pas de connexion, reesayez");
+						} else 
+						{
+							Menu mn = new Menu();
+							mn.getFrame().setVisible(true);
+							//fermer l'onglet
+						}
+						}
 				}
 				 catch (SQLException e1) {
-					// TODO Auto-generated catch block
+					
 					e1.printStackTrace();
 				}
-			
 				
 				
-				/*if (password.contains("admin1") && login.contains("natalia")){
-					textPassword.setText(null);
-					textUserName.setText(null);
-					
-					//changer ici , et ajouter l'interface avec la gestion des passagers
-					//PassagerManagement info = new PassagerManagement();
-					//PassagerManagement.main(null); // connexion avec un autre interface
-					//info.main(null);
-		}
-				else {
-					JOptionPane.showMessageDialog(null, "Login incorrect","Erreur",JOptionPane.ERROR_MESSAGE);
-					textPassword.setText(null);
-					textUserName.setText(null);
-				}*/
-				 
 			}
 		});
 		frame.getContentPane().add(btnLogin);
@@ -217,6 +210,7 @@ public class Login_password {
 		lblImage.setBounds(0, -21, 500, 293);
 		frame.getContentPane().add(lblImage);
 	}
+	
 }
 
 
